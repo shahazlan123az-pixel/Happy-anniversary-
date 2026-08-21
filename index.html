@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Anniversary ❤️</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: Georgia, serif;
+}
+
+body {
+    background: linear-gradient(135deg, #ff416c, #ff7eb3);
+    color: white;
+}
+
+.page {
+    position: absolute;
+    inset: 0;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 25px;
+    overflow-y: auto;
+}
+
+.page.active {
+    display: flex;
+    animation: fadeIn 0.8s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Floating hearts */
+
+.floating-heart {
+    position: fixed;
+    bottom: -40px;
+    z-index: 20;
+    pointer-events: none;
+    animation: floatUp linear forwards;
+}
+
+@keyframes floatUp {
+    from {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+    }
+
+    15% {
+        opacity: 1;
+    }
+
+    to {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Envelope */
+
+#page1 {
+    background: linear-gradient(135deg, #ff416c, #ff4b8b);
+}
+
+.press {
+    font-size: 20px;
+    margin-bottom: 30px;
+    letter-spacing: 2px;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    50% {
+        transform: scale(1.08);
+    }
+}
+
+.envelope {
+    width: 300px;
+    height: 200px;
+    position: relative;
+    cursor: pointer;
+    filter: drop-shadow(0 15px 25px rgba(0,0,0,0.3));
+}
+
+.envelope-body {
+    position: absolute;
+    inset: 0;
+    background: #fff0f5;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.envelope-body::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    border-left: 150px solid transparent;
+    border-right: 150px solid transparent;
+    border-bottom: 115px solid #ffd3df;
+}
+
+.envelope-body::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-left: 150px solid transparent;
+    border-right: 150px solid transparent;
+    border-top: 110px solid #ffb5c8;
+}
+
+.heart {
+    position: absolute;
+    z-index: 10;
+    left: 50%;
+    top: 72px;
+    transform: translateX(-50%);
+    font-size: 60px;
+    transition: 0.3s;
+}
+
+.envelope:hover .heart {
+    transform: translateX(-50%) scale(1.15);
+}
+
+/* Love */
+
+.love-title {
+    font-size: clamp(70px, 18vw, 140px);
+    font-weight: bold;
+    text-shadow: 0 10px 30px rgba(100,0,40,0.4);
+    animation: loveAnimation 1.2s ease;
+}
+
+@keyframes loveAnimation {
+    0% {
+        transform: scale(0) rotate(-20deg);
+    }
+
+    70% {
+        transform: scale(1.15) rotate(5deg);
+    }
+
+    100% {
+        transform: scale(1) rotate(0);
+    }
+}
+
+.kiss {
+    font-size: 80px;
+    margin-top: 20px;
+    animation: kissAnimation 1.5s infinite alternate;
+}
+
+@keyframes kissAnimation {
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.15);
+    }
+}
+
+/* Anniversary */
+
+.anniversary {
+    font-size: clamp(45px, 10vw, 100px);
+    font-weight: bold;
+    line-height: 1.05;
+    text-shadow: 0 8px 25px rgba(100,0,40,0.4);
+}
+
+.anniversary-emojis {
+    margin-top: 25px;
+    font-size: 35px;
+}
+
+/* Timer */
+
+.timer-box {
+    margin-top: 35px;
+    padding: 20px 25px;
+    border-radius: 25px;
+    background: rgba(255,255,255,0.18);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.35);
+}
+
+.timer-title {
+    font-size: 16px;
+    margin-bottom: 12px;
+}
+
+#timer {
+    font-size: clamp(18px, 4vw, 32px);
+    font-weight: bold;
+}
+
+/* Photos */
+
+.photo-page {
+    justify-content: flex-start;
+    padding-top: 40px;
+}
+
+.photo-page h2 {
+    font-size: 30px;
+    margin-bottom: 25px;
+}
+
+.photo {
+    width: min(90vw, 420px);
+    height: min(65vh, 520px);
+    object-fit: cover;
+    border-radius: 25px;
+    border: 5px solid rgba(255,255,255,0.9);
+    box-shadow: 0 20px 45px rgba(80,0,30,0.35);
+}
+
+/* Message */
+
+.message-page {
+    justify-content: flex-start;
+    padding-top: 35px;
+}
+
+.message-box {
+    max-width: 750px;
+    width: 100%;
+    padding: 28px;
+    border-radius: 25px;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.3);
+    box-shadow: 0 20px 45px rgba(80,0,30,0.25);
+    text-align: left;
+    line-height: 1.8;
+    font-size: 17px;
+}
+
+.message-box h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 27px;
+}
+
+.message-box p {
+    margin-bottom: 18px;
+}
+
+/* Final */
+
+.rose {
+    font-size: 125px;
+    animation: roseAnimation 2s infinite alternate;
+}
+
+@keyframes roseAnimation {
+    from {
+        transform: rotate(-5deg) scale(0.95);
+    }
+
+    to {
+        transform: rotate(5deg) scale(1.08);
+    }
+}
+
+.thank-you {
+    font-size: clamp(50px, 12vw, 95px);
+    font-weight: bold;
+    text-shadow: 0 8px 25px rgba(100,0,40,0.4);
+    margin: 15px 0 25px;
+}
+
+/* Buttons */
+
+.next-button {
+    position: fixed;
+    z-index: 100;
+    right: 20px;
+    bottom: 20px;
+    border: none;
+    padding: 14px 24px;
+    border-radius: 30px;
+    background: white;
+    color: #ff416c;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+.next-button:hover {
+    transform: scale(1.06);
+}
+
+.page-number {
+    position: fixed;
+    z-index: 100;
+    top: 15px;
+    right: 15px;
+    padding: 7px 13px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.18);
+    backdrop-filter: blur(8px);
+    font-size: 13px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- PAGE 1 -->
+
+<section class="page active" id="page1">
+
+    <div class="press">PRESS HERE ❤️</div>
+
+    <div class="envelope" onclick="nextPage()">
+        <div class="envelope-body"></div>
+        <div class="heart">❤️</div>
+    </div>
+
+</section>
+
+
+<!-- PAGE 2 -->
+
+<section class="page" id="page2">
+
+    <div class="love-title">LOVE</div>
+
+    <div class="kiss">💋❤️</div>
+
+</section>
+
+
+<!-- PAGE 3 -->
+
+<section class="page" id="page3">
+
+    <div class="anniversary">
+        HAPPY<br>
+        ANNIVERSARY
+    </div>
+
+    <div class="anniversary-emojis">
+        ❤️ 🥹 🫶🏻 💋
+    </div>
+
+    <div class="timer-box">
+
+        <div class="timer-title">
+            Since 23 August 2025 ❤️
+        </div>
+
+        <div id="timer">
+            Loading...
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- PHOTO 1 -->
+
+<section class="page photo-page" id="page4">
+
+    <h2>Our Memory ❤️</h2>
+
+    <img class="photo" src="images/1.jpg" alt="Memory 1">
+
+</section>
+
+
+<!-- PHOTO 2 -->
+
+<section class="page photo-page" id="page5">
+
+    <h2>Our Memory ❤️</h2>
+
+    <img class="photo" src="images/2.jpg" alt="Memory 2">
+
+</section>
+
+
+<!-- PHOTO 3 -->
+
+<section class="page photo-page" id="page6">
+
+    <h2>Our Memory ❤️</h2>
+
+    <img class="photo" src="images/3.jpg" alt="Memory 3">
+
+</section>
+
+
+<!-- PHOTO 4 -->
+
+<section class="page photo-page" id="page7">
+
+    <h2>Our Memory ❤️</h2>
+
+    <img class="photo" src="images/4.jpg" alt="Memory 4">
+
+</section>
+
+
+<!-- PHOTO 5 -->
+
+<section class="page photo-page" id="page8">
+
+    <h2>Our Memory ❤️</h2>
+
+    <img class="photo" src="images/5.jpg" alt="Memory 5">
+
+</section>
+
+
+<!-- PHOTO 6 -->
+
+<section class="page photo-page" id="page9">
+
+    <h2>Our Memory ❤️</h2>
+
+    <img class="photo" src="images/6.jpg" alt="Memory 6">
+
+</section>
+
+
+<!-- PHOTO 7 -->
+
+<section class="page photo-page" id="page10">
+
+    <h2>Our Memory ❤️</h2>
+
+    <img class="photo" src="images/7.jpg" alt="Memory 7">
+
+</section>
+
+
+<!-- PHOTO 8 -->
+
+<section class="page photo-page" id="page11">
+
+    <h2>Our Memory ❤️</h2>
+
+    <img class="photo" src="images/8.jpg" alt="Memory 8">
+
+</section>
+
+
+<!-- YOUR FIRST MESSAGE -->
+
+<section class="page message-page" id="page12">
+
+    <div class="message-box">
+
+        <h2>JANA MERI JANNNNN</h2>
+
+        <p>
+JANA MERI JANNNNN
+jese e apko pata hai aj hamara 1 saal pura howa aur is 1 saal pura hone pa apko bohat bohat mubarak ho. is 1 saal me ham kaafi lare kaafi roe kaafi ghussa bhi howe but in sab ke ilawa hamne aur bhi piyaar krna seekha aur saath rahe alhmdullilah! Jana me tumhara shohar,bby,love jo bhi kaho tumse bohat bohat piyaarrr karta huuuu i love youuuu sooooo muchhhhh had se bhi ziada aur inshallah saari zindagi karta rahunga. ham is 1 saal me itna enjoy kia aur inshallah aage bhi krenge allah hame hamesha ke liy eisi tarah khush rakhe aur isi tarah saath rakhe me is anniversary pe apse kuch wada krunga jese ke me ghussa kam kia krunga ap pe gandi baatain kam kia krunga(ehhehe ap ho hi sexy majboor krdeti) hehe zid kam kia krunga aur apse derrrrr sara piyaar krunga pakkha muwhahhh mwuahhh muwahhh i love you soooo omuchhhhhhhhhh 
+Aj 23 aug 2026 hai aur ham 2025 ko mile the aur inshallah isi tarah aur bhi aaage saath rahenge ameen ameen muwahhh
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- FINAL PAGE -->
+
+<section class="page message-page" id="page13">
+
+    <div class="rose">🌹</div>
+
+    <div class="thank-you">
+        Thank you
+    </div>
+
+    <div class="message-box">
+
+        <p>
+Thank you sooooo muchhh meri jannn tumne is 1 saal me mere saath boaht khuwari ki bohat mehnat ki bohat samjhaya aur bohar piyaar kiaaa bohat bohat bohatttt ziada piyaar kia jabke mene tumhe hurt uske bawajood bhi tumne piyaar kia hehhe muwhahhhhhhhhhhhhhh will love you for ever
+        </p>
+
+    </div>
+
+</section>
+
+
+<button class="next-button" id="nextButton" onclick="nextPage()">
+    NEXT ❤️
+</button>
+
+<div class="page-number" id="pageNumber">
+    1 / 13
+</div>
+
+
+<script>
+
+let currentPage = 1;
+const totalPages = 13;
+
+function showPage(pageNumber) {
+
+    document.querySelectorAll(".page").forEach(function(page) {
+        page.classList.remove("active");
+    });
+
+    document.getElementById("page" + pageNumber).classList.add("active");
+
+    document.getElementById("pageNumber").innerText =
+        pageNumber + " / " + totalPages;
+
+    if (pageNumber === totalPages) {
+        document.getElementById("nextButton").style.display = "none";
+    } else {
+        document.getElementById("nextButton").style.display = "block";
+    }
+}
+
+function nextPage() {
+
+    if (currentPage < totalPages) {
+        currentPage++;
+        showPage(currentPage);
+    }
+}
+
+
+/* Swipe */
+
+let touchStartX = 0;
+
+document.addEventListener("touchstart", function(event) {
+
+    touchStartX = event.changedTouches[0].screenX;
+
+});
+
+document.addEventListener("touchend", function(event) {
+
+    const touchEndX = event.changedTouches[0].screenX;
+
+    if (touchStartX - touchEndX > 60) {
+        nextPage();
+    }
+
+    if (touchEndX - touchStartX > 60 && currentPage > 1) {
+
+        currentPage--;
+
+        showPage(currentPage);
+
+    }
+
+});
+
+
+/* Timer */
+
+const startDate = new Date("2025-08-23T00:00:00");
+
+function updateTimer() {
+
+    const now = new Date();
+
+    const difference = now - startDate;
+
+    if (difference < 0) {
+
+        document.getElementById("timer").innerText =
+            "Our story is about to begin ❤️";
+
+        return;
+
+    }
+
+    const totalSeconds = Math.floor(difference / 1000);
+
+    const days = Math.floor(
+        totalSeconds / (24 * 60 * 60)
+    );
+
+    const hours = Math.floor(
+        (totalSeconds % (24 * 60 * 60)) / (60 * 60)
+    );
+
+    const minutes = Math.floor(
+        (totalSeconds % (60 * 60)) / 60
+    );
+
+    const seconds =
+        totalSeconds % 60;
+
+    document.getElementById("timer").innerText =
+        days + " Days • " +
+        hours + " Hours • " +
+        minutes + " Minutes • " +
+        seconds + " Seconds ❤️";
+
+}
+
+setInterval(updateTimer, 1000);
+
+updateTimer();
+
+
+/* Floating hearts */
+
+function createHeart() {
+
+    const heart = document.createElement("div");
+
+    heart.className = "floating-heart";
+
+    const hearts = [
+        "❤️",
+        "💕",
+        "💗",
+        "💖",
+        "💘",
+        "💞"
+    ];
+
+    heart.innerText =
+        hearts[Math.floor(Math.random() * hearts.length)];
+
+    heart.style.left =
+        Math.random() * 100 + "vw";
+
+    heart.style.fontSize =
+        (15 + Math.random() * 25) + "px";
+
+    heart.style.animationDuration =
+        (5 + Math.random() * 5) + "s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(function() {
+        heart.remove();
+    }, 10000);
+
+}
+
+setInterval(createHeart, 600);
+
+showPage(1);
+
+</script>
+
+</body>
+</html>
